@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Московская Коммерческая Недвижимость</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 1.2rem 0;
+        }
+
+        nav li {
+            margin: 0 1.8rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #004080;
+        }
+
+        /* Hero */
+        #hero {
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/0/01/Business_Centre_of_Moscow_2.jpg') center/cover no-repeat;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 1.5rem;
+        }
+
+        #hero h1 {
+            font-size: clamp(2.4rem, 6vw, 3.8rem);
+            margin-bottom: 1.2rem;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.7);
+        }
+
+        #hero .subtitle {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            margin-bottom: 2.5rem;
+            max-width: 780px;
+            font-weight: 300;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.4);
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+        }
+
+        #hero button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 1.1rem 2.6rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0,102,204,0.35);
+        }
+
+        #hero button:hover {
+            background: #0052a3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,102,204,0.45);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.6rem;
+            margin-bottom: 2.5rem;
+            color: #0066cc;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        /* Filters */
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filters label {
+            font-weight: 500;
+            color: #444;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 160px;
+        }
+
+        /* Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            transition: all 0.32s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            padding: 1.2rem 1.2rem 0.4rem;
+            color: #0066cc;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            padding: 0 1.2rem 1.4rem;
+            color: #555;
+        }
+
+        .card a {
+            display: block;
+            padding: 0 1.2rem 1.4rem;
+            color: #0066cc;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            color: #004080;
+            text-decoration: underline;
+        }
+
+        /* Form */
+        #request {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+        }
+
+        form {
+            max-width: 580px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.9rem;
+            margin: 0.8rem 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 1.1rem;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background: #0052a3;
+        }
+
+        /* Blog */
+        #blog {
+            background: #f8f9fa;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters select,
+            .filters input {
+                width: 100%;
+                min-width: auto;
+            }
+
+            section {
+                padding: 4rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#hero">Главная</a></li>
+            <li><a href="#about">О компании</a></li>
+            <li><a href="#properties">Объекты</a></li>
+            <li><a href="#testimonials">Отзывы</a></li>
+            <li><a href="#blog">Аналитика</a></li>
+            <li><a href="#request">Оставить заявку</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <h1>Аренда и продажа коммерческой недвижимости<br>в Московской области</h1>
+        <div class="subtitle">Ваш надежный партнер в мире бизнеса</div>
+        <button onclick="document.getElementById('request').scrollIntoView({behavior:'smooth'})">Оставить заявку</button>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>О компании</h2>
+            <p style="max-width: 760px; margin: 0 auto; text-align: center; font-size: 1.1rem;">
+                Специализируемся на коммерческой недвижимости Московской области с 2010 года. 
+                Офисы класса A/B, склады, торговые помещения, производственные объекты — 
+                помогаем бизнесу находить лучшие решения быстро, прозрачно и выгодно.
+            </p>
+        </div>
+    </section>
+
+    <section id="properties">
+        <div class="container">
+            <h2>Подобрать объект</h2>
+            
+            <div class="filters">
+                <div>
+                    <label for="type">Тип объекта:</label><br>
+                    <select id="type" onchange="filterProperties()">
+                        <option value="all">Все типы</option>
+                        <option value="office">Офис</option>
+                        <option value="warehouse">Склад</option>
+                        <option value="retail">Торговля</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="price">Макс. ставка, ₽/м²:</label><br>
+                    <input type="number" id="price" placeholder="Любая" min="0" onchange="filterProperties()">
+                </div>
+            </div>
+
+            <div class="grid" id="propertyGrid">
+                <div class="card" data-type="office" data-price="2000">
+                    <img src="https://negativespace.co/wp-content/uploads/2024/11/negative-space-nyc-commercial-real-estate.jpg" alt="Бизнес-центр Альфа">
+                    <h3>Бизнес-центр «Альфа»</h3>
+                    <p>Офисы класса A, центр Москвы, 5000 м², от 2000 ₽/м²</p>
+                </div>
+
+                <div class="card" data-type="warehouse" data-price="1500">
+                    <img src="https://get.pxhere.com/photo/architecture-building-commercial-building-daytime-tower-block-corporate-headquarters-metropolitan-area-headquarters-facade-skyscraper-mixed-use-sky-condominium-tower-city-company-real-estate-office-daylighting-glass-1625697.jpg" alt="Складской комплекс Бета">
+                    <h3>Складской комплекс «Бета»</h3>
+                    <p>Класс A, удобная логистика, 10000 м², от 1500 ₽/м²</p>
+                </div>
+
+                <div class="card" data-type="retail" data-price="1500">
+                    <img src="https://images.pexels.com/photos/19920921/pexels-photo-19920921/free-photo-of-an-office-building-in-a-city.jpeg" alt="Торговый центр Гамма">
+                    <h3>ТЦ «Гамма»</h3>
+                    <p>Помещения под ритейл, высокая проходимость, 3000 м², от 1500 ₽/м²</p>
+                </div>
+
+                <div class="card" data-type="office" data-price="1800">
+                    <img src="https://get.pxhere.com/photo/metropolitan-area-architecture-daytime-blue-commercial-building-building-tower-block-urban-area-skyscraper-sky-metropolis-corporate-headquarters-city-landmark-human-settlement-headquarters-facade-line-mixed-use-condominium-real-estate-tower-glass-reflection-Material-property-company-symmetry-window-convention-center-office-urban-design-1499267.jpg" alt="Офисный парк Дельта">
+                    <h3>Офисный парк «Дельта»</h3>
+                    <p>Эко-офисы в Подмосковье, 8000 м², от 1800 ₽/м²</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2>Что говорят клиенты</h2>
+            <div class="grid">
+                <div class="card">
+                    <p style="padding: 1.5rem; font-style: italic;">«Нашли отличный офис за 10 дней. Всё честно и профессионально.»</p>
+                    <p style="text-align: right; padding: 0 1.5rem 1.5rem; font-weight: bold;">Иван П., TechCorp</p>
+                </div>
+                <div class="card">
+                    <p style="padding: 1.5rem; font-style: italic;">«Очень удобный подбор складов под наши задачи. Спасибо за оперативность.»</p>
+                    <p style="text-align: right; padding: 0 1.5rem 1.5rem; font-weight: bold;">Мария К., Logistix</p>
+                </div>
+                <div class="card">
+                    <p style="padding: 1.5rem; font-style: italic;">«Рекомендую — реально лучшие предложения по соотношению цена/качество.»</p>
+                    <p style="text-align: right; padding: 0 1.5rem 1.5rem; font-weight: bold;">Алексей С., RetailPro</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog">
+        <div class="container">
+            <h2>Аналитика и статьи</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Тренды 2025">
+                    <h3>Тренды коммерческой недвижимости 2025</h3>
+                    <p>Гибкие офисы, рост спроса на склады last-mile, ESG-критерии и влияние ИИ на управление объектами.</p>
+                    <a href="#">Читать полностью →</a>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Инвестиции">
+                    <h3>Как инвестировать в коммерческую недвижимость в 2025 году</h3>
+                    <p>Доходность, риски, ликвидность и наиболее перспективные сегменты Московского региона.</p>
+                    <a href="#">Читать полностью →</a>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Аналитика рынка">
+                    <h3>Обзор рынка офисной недвижимости Москвы и области — Q1 2025</h3>
+                    <p>Ставки аренды, уровень вакантности, объём нового предложения и прогноз на год.</p>
+                    <a href="#">Читать полностью →</a>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Логистика">
+                    <h3>Складская недвижимость: почему спрос растёт быстрее предложения</h3>
+                    <p>Анализ причин бума e-commerce и логистики в Московской области.</p>
+                    <a href="#">Читать полностью →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="request">
+        <div class="container">
+            <h2>Оставить заявку</h2>
+            <form id="requestForm">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="tel" placeholder="Телефон" required>
+                <input type="email" placeholder="Email" required>
+                <select required>
+                    <option value="" disabled selected>Что вас интересует?</option>
+                    <option>Аренда офиса</option>
+                    <option>Покупка офиса</option>
+                    <option>Аренда склада</option>
+                    <option>Покупка склада</option>
+                    <option>Торговое помещение</option>
+                    <option>Другое</option>
+                </select>
+                <textarea rows="4" placeholder="Пожелания по площади, району, бюджету, срокам..."></textarea>
+                <button type="submit">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact" style="background:#f8f9fa; text-align:center; padding:4rem 2rem;">
+        <div class="container">
+            <h2>Связаться с нами</h2>
+            <p>+7 (495) 123-45-67<br>info@moscowrealty.ru<br>Москва, ул. Тверская, 1<br>Пн–Пт: 9:00–18:00</p>
+        </div>
+    </section>
+
+    <script>
+        function filterProperties() {
+            const type = document.getElementById('type').value;
+            const maxPriceInput = document.getElementById('price').value;
+            const maxPrice = maxPriceInput ? parseFloat(maxPriceInput) : Infinity;
+            const cards = document.querySelectorAll('#propertyGrid .card');
+
+            cards.forEach(card => {
+                const cardType = card.dataset.type;
+                const cardPrice = parseFloat(card.dataset.price) || 0;
+
+                const matchType = (type === 'all' || cardType === type);
+                const matchPrice = cardPrice <= maxPrice;
+
+                card.style.display = matchType && matchPrice ? '' : 'none';
+            });
+        }
+
+        window.addEventListener('load', filterProperties);
+    </script>
+</body>
+</html>
